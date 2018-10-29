@@ -1,0 +1,33 @@
+/*__________________________________________________________________________________
+//
+//	FILENAME: global.css
+//	CREATED: 10/26/2018
+//	AUTHOR: Ben Ehrlich
+//	PURPOSE: Global style for mapper.html
+//
+//
+*/
+
+body,html{ padding:0px; margin:0px; background:ghostwhite;} 
+*{ font-family:Chiaro; }
+h2{ margin:0px; }
+textarea{ resize:none; } 
+button { display:inline; border:0px; background:none; outline:0px; text-decoration:none; cursor:pointer; color:#007bff; }
+thead{ background:white; }
+tbody,thead,tr{ display: table; width: 100%; table-layout: fixed; } 
+button:hover { text-decoration: underline; }
+tr:hover{ background:white; } 
+th,td{ text-align:center; } 
+select { height:2.2em; }
+.chartDoor { text-align:center; display:inline-block; padding:12px; margin:5px; color:black; border:1px groove white; } 
+.container-fluid { max-width:1500px; margin:0 auto; } 
+.arrow { padding:4px; display:inline-block; }
+.deleteButton { color:red;border:0px;background:0px;cursor:pointer; }
+.doorList,.zoneList { width:6em; }
+#saveAndLoadArea { margin:10px; margin-top:4em; }
+#zoneTable { display:block; width:100%; height:15em; overflow-y:scroll; border-bottom: 1px inset black; } 
+#pathHere,#chartArea { font-size:.75em; }
+#pathHere { text-align:left; }
+#chartAndPath { margin-bottom:32px; } 
+#headerToggle { color:rgb(255,180,70); }
+#fileName,#filter { width:20em; }

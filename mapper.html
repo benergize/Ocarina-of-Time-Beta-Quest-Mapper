@@ -1,0 +1,165 @@
+ 
+<html>
+	<head>
+	
+		<!--
+		**
+		** mapper.html
+		** Software by Benjamin Ehrlich (benergize.com)
+		** Created 2018.
+		**
+		** You may freely use/modify this software under the MIT License
+		** ...(http://www.benergize.com/mit.txt)
+		**
+		** Questions/Comments to Ehrlich.
+		** 
+		-->
+		
+		<meta charset='utf-8'>
+		<title>Ocarina of Time: Beta Quest Mapper</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+		<!-- This is here and not in the stylesheet to prevent dumb cross origin problems when this is opened locally. -->
+		<style>@font-face { font-family: Chiaro; src: url("./style/chiaro.otf"); } </style>
+
+		<link rel = 'stylesheet' href = 'style/global.css'>
+		
+		<script src = 'zones.js'></script>
+		<script src = 'scr/helpers.js'></script>
+		<script src = 'scr/populateSceneList.js'></script>
+		<script src = 'scr/populateDoorList.js'></script>
+		<script src = 'scr/populatePath.js'></script>
+		<script src = 'scr/populateChart.js'></script>
+		<script src = 'scr/populateTable.js'></script>
+		<script src = 'scr/objectGetters.js'></script>
+		<script src = 'scr/zoneLinking.js'></script>
+		<script src = 'scr/gotoZone.js'></script>
+		<script src = 'scr/findPath.js'></script>
+		<script src = 'scr/loadData.js'></script>
+		<script src = 'scr/makeButton.js'></script>
+		<script src = 'scr/pageOperations.js'></script>
+		
+		<script>
+		
+			var arrow = document.createElement("div"); arrow.classList.add("arrow"); arrow.innerHTML = " &#9658; "; 
+			var dropDownObj = document.createElement("select");
+			var zoneChain = [];
+			
+			window.onbeforeunload = function(){
+				return "";
+			};
+			
+			function init() {
+				bid("#saveDataArea").value = "";
+				bid("#loadDataArea").value = "";
+				bid("#fileName").value = "";
+				
+				populateSceneList();
+				gotoZone('Game');
+			}
+			
+		</script>
+		
+	</head>
+	<body onload = 'init();'>
+	
+		<div class = 'container-fluid'> 
+		
+		
+			<div class = 'text-right'><a href = '#' id = 'headerToggle' onclick = 'toggleHeader()' class = 'text-right'>Close &#128473;</a></div>
+		
+			<!-- Page info    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~
+			~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<header id = 'header' class = 'row'>
+				<div class = 'col-sm-12'>
+					<h1 class = 'text-center'>Beta Quest Mapper</h1>
+					<p><a href = 'http://forums.zeldaspeedruns.com/index.php?topic=2032.0;' target = '_BLANK'>The Beta Quest</a> mod is an Ocarina of Time entrance randomizer created by mzxrules. This mapping tool exists to help you map out save files for easier game navigation (because I was tired of using Excel spreadsheets). The basis for the entrance table is from the <a href = 'http://wiki.spinout182.com/w/Ocarina_of_Time:_Entrance_Table' target = '_BLANK'>Z64 Wiki</a> with a lot of additions and changes by me (<a href = 'http://benergize.com' target = '_BLANK'>Benjamin Ehrlich</a>). Please let me know if there are issues!</p> 
+					<p class = 'small'>
+						Notes: Buildings in Kokiri Forest, Kakariko Village, the main market area, and Lon Lon Ranch, as well as Grottos and Fairy Fountains have been put into single zones, ie, Lon Lon Ranch Buildings/Kakariko Buildings/Grottos.<br/>
+						Gerudo Fortress and Thieves' hideout have a ton of doors as does Tower Collapse. Doors in these zones correspond to the letters on these <sup><a href = 'http://www.vgmaps.com/' target = '_BLANK'>vgmaps.com!</a></sup> maps:
+					</p>
+					<ul class = 'small'>
+						<li><a href = "http://www.vgmaps.com/Atlas/N64/LegendOfZelda-OcarinaOfTime-Future-Gerudo'sFortress(Side).jpg" target='_BLANK'>Gerudo's Fortress/Thieve's Hideout</a></li>
+						<li><a href = "http://www.vgmaps.com/Atlas/N64/LegendOfZelda-OcarinaOfTime-Future-Ganon'sCastle(Escape)(Side).jpg" target = "_BLANK">Tower Collapse</a></li>
+					</ul>
+				</div>
+			</header>
+			<hr/>
+			
+			
+			<!-- Filename area    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~
+			~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<div class = 'row'><div class = 'col-sm-12'>Filename: <input type = 'text' id = 'fileName'></div></div>
+			<hr>
+			<br/>
+			
+			
+			<!-- Zone selector    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~
+			~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<div class = 'row'>
+				<div class = 'col-sm-4'></div>
+				<div class = 'col-sm-4'>
+					<label for = 'zone_from'>Zone:</label>
+					<select class = 'zones' id = 'zone_from' onchange = "gotoZone(this.value);"></select>
+				</div>
+				<div class = 'col-sm-4'></div>
+			</div>
+			<br/><br/><br/>
+			
+			
+			<!-- Door chart and path    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~
+			~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<div class = 'row text-center' id = 'chartAndPath'>
+				<div class = 'col-sm-6' >
+					Doors in <span class = 'chartZoneName'></span>:<br/><br/>
+					<div id = 'chartArea'></div>
+				</div>
+				<div class = 'col-sm-6'> 
+					Path from <span class = 'chartZoneName'></span> to <select onchange = 'populatePath();' id = 'pathToWhere' class = 'zones small' ></select><br/><br/>
+					<div id = 'pathHere'></div>
+				</div>
+			</div> 
+			
+			<!-- Zone table    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~
+			~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<div class = 'row'>
+				<div class = 'col-sm-12'>
+					<table class = 'table'>
+						<thead>
+							<tr>
+								<th>Zone</th>
+								<th>Door</th>
+								<th><strong>Leads to &#9658;</strong></th>
+								<th>Zone</th>
+								<th>Door</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id = 'zoneTable'></tbody>
+					</table>
+					Filter: <input type = 'text' id = 'filter' onkeyup = "populateTable('zone')" onkeydown = "populateTable('zone')"> 
+				</div>
+			</div>
+			<br/><br/>
+			<hr> 
+			
+			
+			<!-- Save and load area    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~
+			~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<div id = 'saveAndLoadArea' class = 'row'>
+				<div class = 'col-sm-6'>
+					Current data:<br/><br/>
+					<textarea class = 'form-control' id = 'saveDataArea' placeholder = "Save data will appear here." readonly style='width:100%' ></textarea><br/>
+					<button onclick = 'copyToClipboard()' class = 'btn btn-dark'>Copy to Clipboard</button>
+				</div>
+				<div class = 'col-sm-6'>
+					Have data to load?<br/><br/>
+					<textarea class = 'form-control' id = 'loadDataArea' placeholder = "Paste it here." style = 'width:100%'></textarea><br/> 
+					<button onclick = 'loadData()' class = 'btn btn-dark'>Load Data</button>
+				</div>
+			</div>  
+		</div> 
+	</body>
+</html>
