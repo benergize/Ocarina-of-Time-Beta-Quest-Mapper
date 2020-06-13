@@ -60,7 +60,8 @@ zones = [
 	{"zone":"Gerudo Training Grounds",
 		"parent":"",
 		"doors":[
-			{"zoneTo":"","doorTo":"","doorName":"Gerudo Fortress"}
+			{"zoneTo":"","doorTo":"","doorName":"Gerudo Fortress"},
+			{"zoneTo":"","doorTo":"","doorName":"Finished Archery Challenge"},
 		],
 		"hide":false,
 		"children":[]
@@ -220,7 +221,22 @@ zones = [
 	{"zone":"Grottos",
 		"parent":"",
 		"doors":[
-			{"zoneTo":"","doorTo":"","doorName":"Default"}
+			{"zoneTo":"","doorTo":"","doorName":"Default"},
+			{"zoneTo":"","doorTo":"","doorName":"Default A"},
+			{"zoneTo":"","doorTo":"","doorName":"Default B"},
+			{"zoneTo":"","doorTo":"","doorName":"Default C"},
+			{"zoneTo":"","doorTo":"","doorName":"Default D"},
+			{"zoneTo":"","doorTo":"","doorName":"Default E"},
+			{"zoneTo":"","doorTo":"","doorName":"Default F"},
+			{"zoneTo":"","doorTo":"","doorName":"Default G"},
+			{"zoneTo":"","doorTo":"","doorName":"Default H"},
+			{"zoneTo":"","doorTo":"","doorName":"Default I"},
+			{"zoneTo":"","doorTo":"","doorName":"Default J"},
+			{"zoneTo":"","doorTo":"","doorName":"Default K"},
+			{"zoneTo":"","doorTo":"","doorName":"Default L"},
+			{"zoneTo":"","doorTo":"","doorName":"Default M"},
+			{"zoneTo":"","doorTo":"","doorName":"Default O"},
+			{"zoneTo":"","doorTo":"","doorName":"Default P"},
 		],
 		"hide":false,
 		"children":["Grotto (Cow)","Grotto (Forest Stage)","Grotto (Tektite)","Grotto (Two Deku Salescrubs, Closest sells Green Pot)","Grotto (Bombable Wall)","Grotto (Two Wolfos)","Grotto (Two Deku Salescrubs, Closest sells Deku Nut Upgrade)","Grotto (Octoroc)","Grotto (Webbed)","Grotto (Three Deku Salescrubs)","Grotto (Two Redeads)","Grotto (Heart Piece Scrub)","Grotto (Big Skulltula)","Small Fairy Fountain"]
@@ -1021,10 +1037,23 @@ zones = [
 			{"zoneTo":"","doorTo":"","doorName":"Triggers Fortress Loading Zone"},
 			{"zoneTo":"","doorTo":"","doorName":"Gerudo Fortress"},
 			{"zoneTo":"","doorTo":"","doorName":"Lake Hylia"},
+			{"zoneTo":"","doorTo":"","doorName":"Hyrule Field"},
 			{"zoneTo":"","doorTo":"","doorName":"Carpenter's Tent"}
 		],
 		"hide":false,
-		"children":["Gerudo Valley (Gerudo Fortress Side)"]
+		"children":["Gerudo Valley (Gerudo Fortress Side)","Gerudo Valley (Hyrule Field Side)"]
+	},
+	{"zone":"Gerudo Valley (Gerudo Fortress Side)",
+		"parent":"",
+		"doors":[
+			{"zoneTo":"","doorTo":"","doorName":"Thrown out of Gerudo Fortress, Caught without usable hookshot"},
+			{"zoneTo":"","doorTo":"","doorName":"Triggers Fortress Loading Zone"},
+			{"zoneTo":"","doorTo":"","doorName":"Gerudo Fortress"},
+			{"zoneTo":"","doorTo":"","doorName":"Lake Hylia"},
+			{"zoneTo":"","doorTo":"","doorName":"Carpenter's Tent"}
+		],
+		"hide":true,
+		"children":["Gerudo Valley"]
 	},
 	
 	{"zone":"Gerudo Valley (Hyrule Field Side)",
@@ -1117,6 +1146,7 @@ zones = [
 		"parent":"",
 		"doors":[
 			{"zoneTo":"","doorTo":"","doorName":"Gerudo Valley"},
+			{"zoneTo":"","doorTo":"","doorName":"Gerudo Training Ground"},
 			{"zoneTo":"","doorTo":"","doorName":"A"},
 			{"zoneTo":"","doorTo":"","doorName":"B"},
 			{"zoneTo":"","doorTo":"","doorName":"C"},
