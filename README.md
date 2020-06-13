@@ -9,3 +9,4 @@ As the game progresses more paths open. This is an issue with pathing when you s
 
 <h2>Credits</h2>
 Credit to mzxrules for making Beta Quest and for compiling the entrance/exit table for OOT, which I found on the ZSR Wiki. Thanks to vgmaps.com for the maps of Gerudo's Fortress/Thieves' Hideout and Tower Collapse which would otherwise be impossible to map. Thanks to Gabe for helping me run endless tests on the pathfinding (not that he didn't enjoy it) and Isabel for helping me do the final test (she lovingly tolerated it). The Chiaro font is made by Nintendo(?) and was found on a sketchy Russian website.
+Thanks to Mike Mimson for getting in touch and letting me know about broken Gerudo mapping.
